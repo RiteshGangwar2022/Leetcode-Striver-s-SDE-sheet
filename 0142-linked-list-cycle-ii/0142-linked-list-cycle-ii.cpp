@@ -11,7 +11,7 @@ public:
     ListNode *detectCycle(ListNode *head) {
         
         //using map TC=>O(n) and SC=>O(n)
-        set<ListNode*>st;//element,index
+        unordered_set<ListNode*>st;//element,index
         ListNode*temp=head;
         while(temp){
             
