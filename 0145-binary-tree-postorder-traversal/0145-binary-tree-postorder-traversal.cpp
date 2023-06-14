@@ -13,13 +13,43 @@ class Solution {
 public:
     void postorder(TreeNode*root,vector<int>&ans){
         
+        //TC=>O(n)
+        /*
         if(root==NULL){
 
-        return;
+             return;
         }
         postorder(root->left,ans);
         postorder(root->right,ans);
-        ans.push_back(root->val);
+        ans.push_back(root->val);*/
+        
+        //iterative version
+        
+        stack<TreeNode*>st1;
+        stack<TreeNode*>st2;
+        st1.push(root);
+        while(st1.size()){
+            
+            TreeNode*curr=st1.top();
+            st1.pop();
+            st2.push(curr);
+            if(curr->left){
+                   st1.push(curr->left);
+            
+            }
+            if(curr->right){
+                st1.push(curr->right);
+            }
+        
+        }
+        
+        while(st2.size()){
+            
+             TreeNode*top=st2.top();
+              st2.pop();
+              ans.push_back(top->val);
+        }
+           
     }
     vector<int> postorderTraversal(TreeNode* root) {
         
