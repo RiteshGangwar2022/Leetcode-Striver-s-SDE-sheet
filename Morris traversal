@@ -1,0 +1,40 @@
+ vector<int> inOrder(Node* root) {
+        // Your code here
+        
+        
+        vector<int>ans;
+       //implementing morris traversal  =>Tc O(n) and Sc O(1)
+        
+        //steps=>1) check if left part of curr is null or not
+        Node*curr=root;
+        while(curr!=NULL){
+            
+            if(curr->left==NULL){
+                //if it null, then push the, curr->data and , moves to right
+                ans.push_back(curr->data);
+                curr=curr->right;
+            }
+            else{
+                
+                //go right of the left sub-tree till it does not get null
+                Node*prev=curr->left;
+                while(prev->right!=NULL && prev->right!=curr){
+                      prev=prev->right;
+                }  
+                
+                 if(prev->right==NULL){
+                 
+                       //make connection to curr node, so that it can travel to right part of the tree
+                       prev->right=curr;      //if preorder=> then, preorder.push_back(cuur->data), here, when we are creating the thread, and remover push_back from next statement
+                       curr=curr->left;
+                }
+                else{
+                    prev->right=NULL;
+                     ans.push_back(curr->data);
+                     curr=curr->right;//if there was already connection between curr and right part, then left part alreay visited, so , now move to rifght part of the tree
+                }
+            }
+        }
+    return ans;
+        
+    }
