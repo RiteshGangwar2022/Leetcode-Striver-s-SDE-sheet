@@ -17,10 +17,11 @@ public:
      if(root==NULL){
          return 0;
      }
+       //here we are getting max comparing leftsum with 0, because, we want to avoid the -ve nodes
      int left=max(0,helper(root->left,maxi));
      int right=max(0,helper(root->right,maxi));
      maxi=max(maxi,left+right+root->val);
-     return max(left,right)+root->val;
+     return max(left,right)+root->val;//return to previou node, leftsum+rightsum+root->data
 }
     int maxPathSum(TreeNode* root) {
         int maxi=INT_MIN;
