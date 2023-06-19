@@ -1,0 +1,55 @@
+
+void helper(BinaryTreeNode<int>*root){
+    if(root==NULL){
+        return;
+    }
+
+    //now, adding root's left and right data
+    int sum=0;
+    if(root->left){
+        sum+=root->left->data;
+    }
+    if(root->right){
+        sum+=root->right->data;
+    }
+
+    //if this sum is greater than root->data then, assign it to root else assign root->data to left and right
+
+    if(sum>=root->data){
+        root->data=sum;
+    }
+    else{
+        if(root->left){
+            root->left->data=root->data;
+        }
+        if(root->right){
+            root->right->data=root->data;
+        }
+    }
+
+    //call for left and right
+    helper(root->left);
+    helper(root->right);
+
+    //now, assign left and right data to root
+
+    int total=0;
+    if(root->left){
+        total+=root->left->data;
+    }
+    if(root->right){
+        total+=root->right->data;
+    }
+    //check if root is not a leaf node
+    if(root->left || root->right){
+        root->data=total;
+    }
+}
+void changeTree(BinaryTreeNode < int > * root) {
+    // Write your code here.
+    //there can be many different solution exits for this problem
+
+    //app=>first assign every node max of (root,left and right)
+    //then, just replace root with with its left and right data
+    helper(root);
+}  
