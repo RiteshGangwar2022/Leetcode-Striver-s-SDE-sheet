@@ -24,7 +24,7 @@ public:
               return NULL;
           }
         // TC=>O(n) and SC=>O(n) => do dry run for this algo ,it is simple we are just taking the currnext=NULL and , update currnext with curr
-        queue<Node*>q;
+       /* queue<Node*>q;
         q.push(root);
         while(q.size()){
             
@@ -45,6 +45,24 @@ public:
               }
         }
         return root;
+        */
         
+        //iterative version TC=>O(n) , and SC=>O(1)
+        
+        Node*curr=root;
+        while(curr->left){
+            
+              Node*temp=curr;
+            while(curr!=NULL){
+                 
+                  curr->left->next=curr->right;
+                if(curr->next){
+                    curr->right->next=curr->next->left;
+                }
+                curr=curr->next;
+            }
+            curr=temp->left;
+        }
+          return root;
     }
 };
