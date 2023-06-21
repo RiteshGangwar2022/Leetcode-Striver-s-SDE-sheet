@@ -100,7 +100,7 @@ int main() {
 
 // Function to return the ceil of given number in BST.
 
-void helper(Node*root,vector<int>&ans){
+/*void helper(Node*root,vector<int>&ans){
     
     if(root==NULL){
         
@@ -110,10 +110,32 @@ void helper(Node*root,vector<int>&ans){
     helper(root->left,ans);
     ans.push_back(root->data);
     helper(root->right,ans);
+}*/
+
+void helper(Node*root,int input,int&ceil){
+    
+    if(root==NULL){
+        return;
+    }
+    
+    if(root->data>=input&&root->data<ceil){
+        
+           ceil=root->data;
+    }
+    
+    if(root->data>input){
+        
+        helper(root->left,input,ceil);
+    }
+    if(root->data<input){
+        helper(root->right,input,ceil);
+    }
+    
 }
 int findCeil(Node* root, int input) {
     
-         vector<int>ans;
+    //TC=>O(n) and SC=>o(n)
+       /*  vector<int>ans;
          helper(root,ans);
          
          int index=lower_bound(ans.begin(),ans.end(),input)-ans.begin();
@@ -123,6 +145,15 @@ int findCeil(Node* root, int input) {
          }
          else{
              return ans[index];
+         }*/
+         
+         //TC=>O(h) sc=>O(h)=>log2n
+         
+         int ceil=INT_MAX;
+         helper(root,input,ceil);
+         if(ceil==INT_MAX){
+             return -1;
          }
+         return ceil;
          
 }
