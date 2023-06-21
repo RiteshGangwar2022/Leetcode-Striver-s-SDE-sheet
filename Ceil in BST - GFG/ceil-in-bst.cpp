@@ -112,7 +112,7 @@ int main() {
     helper(root->right,ans);
 }*/
 
-void helper(Node*root,int input,int&ceil){
+/*void helper(Node*root,int input,int&ceil){
     
     if(root==NULL){
         return;
@@ -131,7 +131,7 @@ void helper(Node*root,int input,int&ceil){
         helper(root->right,input,ceil);
     }
     
-}
+}*/
 int findCeil(Node* root, int input) {
     
     //TC=>O(n) and SC=>o(n)
@@ -149,11 +149,34 @@ int findCeil(Node* root, int input) {
          
          //TC=>O(h) sc=>O(h)=>log2n
          
-         int ceil=INT_MAX;
+         /*int ceil=INT_MAX;
          helper(root,input,ceil);
          if(ceil==INT_MAX){
              return -1;
          }
-         return ceil;
+         return ceil;*/
          
+         //iterative solution =>TC=>O(h) log2n
+         
+         Node*curr=root;
+         int ceil=-1;
+         
+         while(curr!=NULL){
+             
+             
+             if(curr->data==input){
+                 ceil=curr->data;
+                 return ceil;
+             }
+             else if(curr->data>=input){
+                    
+                    ceil=curr->data;
+                    curr=curr->left;
+             }
+             else{
+                 curr=curr->right;
+             }
+             
+         }
+         return ceil;
 }
