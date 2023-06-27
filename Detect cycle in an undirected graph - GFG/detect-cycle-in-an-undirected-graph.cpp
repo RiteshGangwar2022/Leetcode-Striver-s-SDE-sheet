@@ -7,7 +7,7 @@ class Solution {
   public:
     // Function to detect cycle in an undirected graph.
     
-    bool helper(int start, vector<int>&vis, vector<int>adj[]){
+  /*  bool helper(int start, vector<int>&vis, vector<int>adj[]){
         
         
          queue<pair<int,int>>q; //<node,parent>
@@ -34,7 +34,29 @@ class Solution {
              }
          }
          return false;
+    }*/
+    
+    
+    bool dfs(int start,int parent,vector<int>&vis,vector<int>adj[]){
+        
+        
+        vis[start]=1;
+        
+        for(auto it:adj[start]){
+                
+                if(!vis[it]){
+                    if(dfs(it,start,vis,adj)==true){
+                    return true;
+                    }
+                    
+                }
+                else if(it!=parent){
+                    return true;
+                }
+        }
+        return false;
     }
+    
     bool isCycle(int V, vector<int> adj[]) {
         // Code here
         
@@ -47,7 +69,7 @@ class Solution {
          
          //to traverse all the connecte components
          
-         for(int i=0;i<V;i++){
+        /* for(int i=0;i<V;i++){
              
              
              if(!vis[i]){
@@ -57,7 +79,27 @@ class Solution {
                  }
              }
          }
+         return false;*/
+         
+         
+         
+         
+         //using DFS=>same time complexity
+         //same app->just convert the bfs to dfs
+         
+         for(int i=0;i<V;i++){
+             
+             
+             if(!vis[i]){
+                  if(dfs(i,-1,vis,adj)==true){
+                  return true;
+              }
+             }
+             
+         }
          return false;
+         
+         
     }
 };
 
