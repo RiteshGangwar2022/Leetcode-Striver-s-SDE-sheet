@@ -7,6 +7,19 @@ class Solution
 {
 	public:
 	//Function to return list containing vertices in Topological order. 
+	
+	void dfs(int start,stack<int>&s,vector<int>&vis,vector<int>adj[]){
+	    
+	    vis[start]=1;
+	    
+	    for(auto it:adj[start]){
+	        
+	        if(!vis[it]){
+	            dfs(it,s,vis,adj);
+	        }
+	    }
+	    s.push(start);
+	}
 	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
 	    // code here
@@ -15,9 +28,10 @@ class Solution
 	    
 	    //toposort=> let u->v, means, in toposort , u must appear before v
 	    //so, there can be any number of toposort pattern 
+	    //TC =>O(V+E)
+	    //SC=>O(V)
 	    
-	    
-	    vector<int>indegree(V,0); //intiall indegree of all the vertices is zero
+	  /*  vector<int>indegree(V,0); //intiall indegree of all the vertices is zero
 	    //note->to get outdegree, we can just get the size of vector of every indexed array in adjacency list
 	    
 	    //getting ingree of all the vertices
@@ -55,8 +69,31 @@ class Solution
 	         }
 	         
 	    }
-	    return topo;
+	    return topo;*/
 	    
+	    
+	    
+	    //dfs =>simple do a dfs traversal , and store all the vertices in stack 
+	    //just insert all the elemnets from stack back to topo vector
+	    //same as of BFS
+	    vector<int>vis(V,0);
+	    stack<int>s;
+	    for(int i=0;i<V;i++){
+	        
+	        if(!vis[i]){
+	            dfs(i,s,vis,adj);
+	        }
+	    }
+	    
+	   vector<int>topo;
+	   while(s.size()){
+	       
+	       int ele=s.top();
+	       s.pop();
+	       topo.push_back(ele);
+	   }
+	    
+	    return topo;
 	}
 };
 
