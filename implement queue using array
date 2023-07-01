@@ -1,0 +1,113 @@
+#include <iostream>
+using namespace std;
+template <class T>
+class queue
+{
+    T *data;
+    int size;
+    int nextindex;
+    int firstindex;
+    int capacity;
+
+public:
+    queue()
+    {
+        data = new T[4];
+        nextindex = 0;
+        firstindex = -1;
+        size = 0;
+        capacity = 4;
+    }
+    int sizes()
+    {
+        return size;
+    }
+    bool isempty()
+    {
+        if (size == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    T front()
+    {
+        if (isempty())
+        {
+            cout << "queue is empty" << endl;
+            return 0;
+        }
+        else
+        {
+            return data[firstindex];
+            firstindex = (firstindex + 1) % capacity;
+        }
+    }
+    void enqueue(T ele)
+    {
+        if (size == capacity)
+        {
+            T *newdata = new T(2*capacity);
+            int j = 0;
+            for (int i = firstindex; i < capacity; i++)
+            {
+                newdata[j] = data[i];
+                j++;
+            }
+            for (int i = 0; i < firstindex; i++)
+            {
+                newdata[j] = data[i];
+                j++;
+            }
+            delete[] data;
+            data=newdata;
+            capacity *= 2;
+            firstindex=0;
+            nextindex=capacity;
+        }
+        else
+        {
+            data[nextindex] = ele;
+            size++;
+            nextindex = (nextindex + 1) % capacity;
+            if (firstindex == -1)
+            {
+                firstindex = 0;
+            }
+        }
+    }
+    T dequeue()
+    {
+        if (isempty())
+        {
+            cout << "queue is empty " << endl;
+            return 0;
+        }
+        else
+        {
+            T ans = data[firstindex];
+            firstindex++;
+            size--;
+            return ans;
+        }
+    }
+};
+int main()
+{
+    queue<int> q;
+    q.enqueue(10);
+    q.enqueue(20);
+    q.enqueue(30);
+    q.enqueue(40);
+    q.enqueue(50);
+    cout << q.dequeue() << endl;
+    cout << q.dequeue() << endl;
+    cout << q.dequeue() << endl;
+    cout << q.front() << endl;
+    cout << q.isempty() << endl;
+    cout << q.sizes() << endl;
+    return 0;
+}
