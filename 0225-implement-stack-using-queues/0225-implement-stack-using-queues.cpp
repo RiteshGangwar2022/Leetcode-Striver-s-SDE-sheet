@@ -23,11 +23,13 @@ public:
             q1.pop();
         }
         
-        while(q2.size()){
+       /* while(q2.size()){
             
             q1.push(q2.front());
             q2.pop();
-        }
+        }*/
+        //we can also just swap instead of it
+        swap(q1,q2);
         
     }
     
