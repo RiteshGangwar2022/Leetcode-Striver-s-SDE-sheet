@@ -1,39 +1,54 @@
 class MyStack {
-    queue<int> q1,q2;
 public:
+    
+    queue<int>q1,q2;
     MyStack() {
+        /*  1->app=>take two q1, and q2
+         follow order while push=>
+         **x->q2
+         **q1->q2
+         **q2->q1
+         rest all operation performed on q1 which acts as stack 
+         TC =>o(N), and sc=>O(n) 
         
+        */
     }
     
     void push(int x) {
-        q1.push(x);
+        
+        q2.push(x);
+        
+        while(q1.size()){
+            q2.push(q1.front());
+            q1.pop();
+        }
+        
+        while(q2.size()){
+            
+            q1.push(q2.front());
+            q2.pop();
+        }
+        
     }
     
     int pop() {
-//In this we put the element of the q1 to the q2 but not the last element of the q1.
-        if(q1.empty())return -1;
-        int el=q1.back();
-        int i=0;
-        while(i<q1.size()-1){
-                q2.push(q1.front());
-            
-            q1.pop();
-        }
+       int ans=q1.front();
         q1.pop();
-       while(!q2.empty()){
-           q1.push(q2.front());
-           q2.pop();
-       }
-        return el;
+        return ans;
     }
     
     int top() {
-        return q1.back();
+        int ans=q1.front();
+        return ans;
     }
     
     bool empty() {
-        if(q1.empty()) return true;
-        return false;
+        if(q1.size()==0){
+            return true;
+        }
+        else{
+             return false;
+        }
     }
 };
 
