@@ -1,55 +1,44 @@
 class MyStack {
 public:
-    
-    queue<int>q1,q2;
+    queue<int>q;
     MyStack() {
-        /*  1->app=>take two q1, and q2
-         follow order while push=>
-         **x->q2
-         **q1->q2
-         **q2->q1
-         rest all operation performed on q1 which acts as stack 
-         TC =>o(N), and sc=>O(n) 
-        
+        /*2nd app=>using single queue
+         //take q and push x into it
+         **now, pop all the elements less than size-1    
         */
     }
     
     void push(int x) {
+         
+          int size=q.size();
+        q.push(x);
         
-        q2.push(x);
+        //now, pop elemnet and push them till size-1
         
-        while(q1.size()){
-            q2.push(q1.front());
-            q1.pop();
+        for(int i=0;i<q.size()-1;i++){
+                int ans=q.front();
+            q.pop();
+            q.push(ans);
+        
         }
-        
-       /* while(q2.size()){
-            
-            q1.push(q2.front());
-            q2.pop();
-        }*/
-        //we can also just swap instead of it
-        swap(q1,q2);
-        
     }
     
     int pop() {
-       int ans=q1.front();
-        q1.pop();
+        int ans=q.front();
+        q.pop();
         return ans;
     }
     
     int top() {
-        int ans=q1.front();
-        return ans;
+        return q.front();
     }
     
     bool empty() {
-        if(q1.size()==0){
+        if(q.size()==0){
             return true;
         }
         else{
-             return false;
+            return false;
         }
     }
 };
