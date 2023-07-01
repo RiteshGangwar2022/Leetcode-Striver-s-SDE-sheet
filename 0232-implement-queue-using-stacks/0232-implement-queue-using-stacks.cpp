@@ -1,57 +1,65 @@
 class MyQueue {
 public:
-    
     stack<int>input,output;
     MyQueue() {
-        //approach one=> use two stack-> input and output.
-        //push=> peroform=> input->ouput
-                          //x->input
-                         // output->input
-        //rest perform all the operation on input stack
-        //TC ->push O(n), and rest are o(1)
+        /* implementing in amortized time complexity =>O(1) and SC=>O(N)
+           
+           steps=>take two stack
+           **for push=>just push element into input stack
+           **for pop and top, see output is not emprty perform on top of output
+           else , move input ->output
+           peroform operation on output
+        */
     }
     
     void push(int x) {
         
-        while(input.size()){
-            
-            output.push(input.top());
-            input.pop();
-        }
-        input.push(x);
-        while(output.size()){
-               input.push(output.top());
-            output.pop();
-        
-        }
+           input.push(x);
          
     }
     
     int pop() {
-        
-        if(input.empty()){
-            return -1;
+         
+        if(output.size()==0){
+              while(input.size()){
+                output.push(input.top());
+                input.pop();
+             }
+            int ans=output.top();
+            output.pop();
+            return ans;
         }
-        int ans=input.top();
-        input.pop();
-        return ans;
+        else{
+            int ans=output.top();
+            output.pop();
+            return ans;
+        
+        }
+            
     }
     
     int peek() {
-        if(input.empty()){
-            return -1;
+          if(output.size()==0){
+              while(input.size()){
+                output.push(input.top());
+                input.pop();
+             }
+            int ans=output.top();
+            return ans;
         }
-        int ans=input.top();
-        return ans;
+        else{
+            int ans=output.top();
+            return ans;
+        
+        }
     }
     
     bool empty() {
-        if(input.size()){
-               return false;
-        
+        if((input.size()+output.size())==0){
+            return true;
         }
         else{
-            return true;
+               return false;
         }
     }
 };
