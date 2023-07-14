@@ -2,7 +2,10 @@ class Solution {
 public:
     bool isAnagram(string s, string t) {
         
-        if(s.size()<t.size()){
+       /* TC(n) and SC(n)
+         //n=s.size();  m=t.size();
+       
+       if(s.size()<t.size()){
             return false;
         }
         
@@ -35,6 +38,18 @@ public:
         }
         else{
               return true;
+        }*/
+        
+        //using sorting
+        //TC =>O(nlogn + mlongm)
+        sort(s.begin(),s.end());
+        sort(t.begin(),t.end());
+        
+        if(s==t){
+            return true;
+        }
+        else{
+            return false;
         }
       
     }
